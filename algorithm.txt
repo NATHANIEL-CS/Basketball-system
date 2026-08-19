@@ -1,0 +1,66 @@
+BASKETBALL PROJECT USING OOP AND DYNAMIC ALLOCATION
+
+OOP CONCEPT
+1. BASKETBALL BLUEPRINT
+ 1.1 int Player
+ 1.2 string Team
+
+ METHOD()
+
+2 PLAYER BLUEPRINT
+ 2.1 string Surname
+ 2.2 string Position
+ 2.3 int Score = 0
+ 2.4 int JerseyNumber = 0
+
+ METHOD:
+    showinfo()
+    pass(Character* target)
+    shoot(random chance) -> addscore(1pts, 2pts, 3pts, missed)
+
+3 TEAM BLUEPRINT
+ 3.1 string TeamName
+ 3.2 int Standing
+ 
+ METHOD:
+    showinfo() //Team Name, Standing 
+
+CODE FLOW
+
+1. ILANG TEAM(S) ANG GAGAWIN?: 
+1.1 ANONG PANGALAN NG TEAM: 
+2. ILANG PLAYER KADA TEAM?: 
+3. ANONG PANGALAN NG PLAYER?:
+4. ANONG JERSEY NUMBER NI PLAYER?:
+5. ANONG POSITION NI PLAYER?: 
+6. DISPLAY SHOWINFO [ALL PLAYER] VS [ENEMY]
+7. PICK A TEAM:
+ 7.1 SHOWINFO NG PLAYER SA TEAM NA NAPILI
+ 7.2 PICK A PLAYER FROM TEAM:
+ 
+8. CHOOSE MOVE [1] SHOOT [2] DEFENSE [3] PASS [4] QUIT
+    if(select == 1) {
+        player->shoot()
+
+        if(missShoot){
+            cout << "PICK A PLAYER AGAIN: "
+            cin >> player;
+            return choose move;
+        }
+    } else if(select == 2){
+        player->defense()
+    } else if(select == 3){
+        cout << "KANINO IPAPASA: ";
+        player->pass(JerseyNumber[3]);
+    } else if(select == 4){
+        break;
+    } else {
+        cout << "INVALID CHOICE:";
+    }
+
+if(score == 10pts){
+    cout << "WINNERS";
+    team->showinfo();
+} else{
+    cout << Teamname << " LOSE";
+}
