@@ -140,8 +140,20 @@ int main()
     int player;
     srand(time(0));
 
-    cout << "HOW MANY TEAMS: ";
-    cin >> team;
+    while(true){
+        cout << "HOW MANY TEAMS (max 3): ";
+        cin >> team;
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "INPUT A NUMBER!" << endl;
+        } else if(team <= 0 || team > 3){
+            cout << "ENTER 1 TO 3 ONLY!" << endl;
+        } else {
+            break;
+        }
+    }
 
     Team** ptrTeam = new Team*[team];
 
@@ -154,8 +166,20 @@ int main()
         ptrTeam[i] = new Team(teamname, 0, 0);
     }
 
-    cout << "\nHOW MANY PLAYERS IN TEAM: ";
-    cin >> player;
+    while(true){
+        cout << "\nHOW MANY PLAYERS IN TEAM: ";
+        cin >> player;
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "INPUT A NUMBER!" << endl;
+        } else if(player <= 0){
+            cout << "PLAYER MUST BE GREATER THAN 0" << endl;
+        } else {
+            break;
+        }
+    }
 
     Player** ptrPlayer = new Player*[player];
 
@@ -167,9 +191,21 @@ int main()
     }
 
     int choose;
-
-    cout << "\nCHOOSE: ";
-    cin >> choose;
+    
+    while(true){
+        cout << "\nCHOOSE: ";
+        cin >> choose;
+        
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "INPUT A NUMBER!" << endl;
+        } else if(choose < 1 || choose > team){
+            cout << "INVALID TEAM!" << endl;
+        } else {
+            break;
+        }
+    }
 
     for(int a = 0; a < player; a++){
         string surname, position;
@@ -181,8 +217,18 @@ int main()
         cout << "PLAYER POSITION " << a + 1 << "#: ";
         cin >> position;
 
-        cout << "JERSEY NUMBER " << a + 1 << "#: ";
-        cin >> jerseynumber;
+        while(true){
+            cout << "JERSEY NUMBER " << a + 1 << "#: ";
+            cin >> jerseynumber;
+
+            if(cin.fail()){
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "INVALID JERSEY NUMBER!" << endl;
+            } else {
+                break;
+            }
+        }
 
         ptrPlayer[a] = new Player(surname,position,0,jerseynumber);
     }
@@ -193,7 +239,68 @@ int main()
     cout << "=======================================" << endl;
 
     for(int i = 0; i < player; i++){
+        cout << "[" << i + 1 << "]" << endl;
         ptrPlayer[i]->Showinfo();
+    }
+
+    int pick;
+        while(true){
+        cout << "PICK A PLAYER: ";
+        cin >> pick;
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "INVALID PLAYER!" << endl;
+        } else if(pick < 1|| pick > player){
+            cout << "INVALID PLAYER!" << endl;
+        } else {
+            break;
+        }
+    }
+
+    while(true){
+        cout << "(1) SHOOT (2) PASS (3) EXIT" << endl;
+        cout << "CHOOSE: ";
+        cin >> choose;
+
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "INVALID CHOICES!" << endl;
+        } else if(choose == 1){
+            ptrPlayer[pick -1]->Shoot();
+        } else if(choose ==2){
+            int to;
+            cout << "\nAVAILABLE PLAYERS:" << endl;
+
+            for(int i = 0; i < player; i++){
+                cout << "[" << i + 1 << "]" << ptrPlayer[i]->GetSurname() << endl;
+            }
+
+            while(true){
+                cout << "PASS TO: ";
+                cin >> to;
+
+                if(cin.fail()){
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cout << "INVALID PLAYER!" << endl;
+                } else if(to < 1 || to > player) {
+                    cout << "INVALID PLAYER!" << endl;
+                } else {
+                    break;
+                }
+            }
+
+            if(to == pick){
+                cout << "Not allowed to pass yourself!" << endl;
+            } else {
+                ptrPlayer[pick -1]->Pass(ptrPlayer[to -1]);
+            }
+        } else if(choose == 3){
+            break;
+        }
     }
 
     for(int i = 0; i < player; i++){
